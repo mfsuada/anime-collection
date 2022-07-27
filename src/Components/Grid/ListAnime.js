@@ -13,7 +13,7 @@ import { clearSelectedTemp, findSelectedTemp, getCollectionNames, getSelectedTem
 import { Grow1 } from "../../Style/Body";
 import { Alert } from "../../Style/Alert";
 
-const ListAnime = ({goToDetails}) => {
+const ListAnime = ({goToDetails, goToCollectionDetails}) => {
     const [listAnime, setListAnime] = useState([])
     const [page, setPage] = useState(parseInt(localStorage.getItem('paginate-anime') || '1'))
     const [show, setShow] = useState(false);
@@ -81,7 +81,7 @@ const ListAnime = ({goToDetails}) => {
                                     <br />
                                     <br />
                                     {getCollectionNames(item.id).map((item, key) => (
-                                        key < 7 && <span key={`${key} - ${item.id}`} className="clicked">#{item.collection} </span>
+                                        key < 7 && <span key={`${key} - ${item.id}`} className="clicked" onClick={() => goToCollectionDetails(item.collection)}>#{item.collection} </span>
                                     ))}
                                 </sub>
                                 <div className="action">

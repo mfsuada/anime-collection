@@ -76,7 +76,7 @@ function App() {
       switch (activeTab) {
         case TabName.Collection: 
           return pageActive === PageName.CollectionDetail ? <CollectionDetail goToAnimeDetails={goToAnimeDetails} backToCollectionDetails={backToCollectionDetails} /> : <ListCollection goToAnimeDetails={goToAnimeDetails} goToCollectionDetails={goToCollectionDetails} />;
-        default : return pageActive === PageName.AnimeDetail ? <AnimeDetail backToAnimeList={backToAnimeList} goToCollectionDetails={goToCollectionDetails} /> : <ListAnime goToDetails={goToAnimeDetails} />;
+        default : return pageActive === PageName.AnimeDetail ? <AnimeDetail backToAnimeList={backToAnimeList} goToCollectionDetails={goToCollectionDetails} /> : <ListAnime goToDetails={goToAnimeDetails} goToCollectionDetails={goToCollectionDetails} />;
       }
   }
 

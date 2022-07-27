@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { descriptionSlice, titleSlice } from "../../helper/manipulation";
 import { getCollectionDetail, getCollectionNames, getCollectionsItemsByName } from "../../store/Collection";
 import { Grow1 } from "../../Style/Body";
@@ -10,7 +10,7 @@ import { Img } from "../../Style/Img";
 
 const CollectionDetail = ({ backToCollectionDetails, goToAnimeDetails }) => {
     const detail = getCollectionDetail();
-    const collectionItem = useState(getCollectionsItemsByName(detail));
+    const collectionItem = getCollectionsItemsByName(detail);
 
     return (
         <Fragment>

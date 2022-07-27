@@ -6,7 +6,7 @@ import { Action, Button, ButtonSingleCollection } from "../../Style/Button";
 import { DetailCard } from "../../Style/Card";
 import SingleAddCollection from "../Modal/SingleAddCollection";
 
-const AnimeDetail = ({ backToAnimeList }) => {
+const AnimeDetail = ({ backToAnimeList, goToCollectionDetails }) => {
     const detail = getDetailAnime();
     const [collection, setCollection] = useState(getCollectionNames(detail.id));
     const [show, setShow] = useState(false);
@@ -39,7 +39,7 @@ const AnimeDetail = ({ backToAnimeList }) => {
                         <title>Collections :</title>
                         {collection.map((item) => {
                             return (<div key={item.collection} className="clicked" onClick={() => {
-                                alert('ah')
+                                goToCollectionDetails(item.collection)
                             }}>#{item.collection}</div>)
                         })}
 
