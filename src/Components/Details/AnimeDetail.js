@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { containSpecialChar } from "../../helper/manipulation";
 import { getDetailAnime } from "../../store/Anime";
 import { getCollectionNames, saveSingleCollections } from "../../store/Collection";
 import { Grow1 } from "../../Style/Body";
@@ -10,11 +11,20 @@ const AnimeDetail = ({ backToAnimeList, goToCollectionDetails }) => {
     const detail = getDetailAnime();
     const [collection, setCollection] = useState(getCollectionNames(detail.id));
     const [show, setShow] = useState(false);
+    const [error, setError] = useState(false);
 
     const submit = (collectionName) => {
-        saveSingleCollections(collectionName);
-        setShow(false);
-        setCollection(getCollectionNames(detail.id));
+        if (collectionName !== "") {
+            if (containSpecialChar(collectionName)) {
+                setError("Collection name cannot be special characters")
+            } else {
+                saveSingleCollections(collectionName);
+                setShow(false);
+                setCollection(getCollectionNames(detail.id));
+            }
+        } else {
+            setError("Collection name cannot be empty")
+        }
     }
 
 
@@ -47,7 +57,7 @@ const AnimeDetail = ({ backToAnimeList, goToCollectionDetails }) => {
                     </div>
                 </div>
             </DetailCard>
-            <SingleAddCollection show={show} item={detail} submit={submit} onClose={() => setShow(false)} />
+            <SingleAddCollection show={show} item={detail} submit={submit} onClose={() => setShow(false)} error={error} />
         </Fragment>
     )
 }

@@ -13,3 +13,10 @@ export const titleSlice = (string) => {
 
     return string;
 }
+
+export const containSpecialChar = (string) => {
+    // eslint-disable-next-line
+    const specialChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
+    return specialChar.test(string);
+}

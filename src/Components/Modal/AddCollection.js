@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { containSpecialChar } from "../../helper/manipulation";
 import { clearSelectedTemp, saveCollections } from "../../store/Collection";
 import { ButtonSave } from "../../Style/Button";
 import { ErrorLabel, Input } from "../../Style/Input";
@@ -6,16 +7,20 @@ import { Modal } from "../../Style/Modal";
 
 const AddCollection = ({ show, onClose }) => {
     const [collectionName, setCollectionName] = useState("");
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
 
     const submit = () => {
         setError(false)
         if (collectionName !== "") {
-            saveCollections(collectionName);
-            onClose()
-            clearSelectedTemp();
+            if (containSpecialChar(collectionName)) {
+                setError("Collection name cannot be special characters")
+            } else {
+                saveCollections(collectionName);
+                onClose()
+                clearSelectedTemp();
+            }
         } else {
-            setError(true)
+            setError("Collection name cannot be empty")
         }
     }
 
@@ -29,7 +34,7 @@ const AddCollection = ({ show, onClose }) => {
                 Add Collection
                 <span className="close" onClick={() => onClose()}>&times;</span>
                 <Input type="text" id="collectionName" value={collectionName} name="collectionName" placeholder="Collection name.." onChange={(e) => setValue(e.target.value)}/>
-                {error && (<ErrorLabel>Collection name cannot be empty</ErrorLabel>)}
+                {error !== "" && (<ErrorLabel>{error}</ErrorLabel>)}
                 <ButtonSave onClick={() => submit()}>Save</ButtonSave>
             </div>
         </Modal>

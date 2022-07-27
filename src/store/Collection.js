@@ -25,8 +25,9 @@ export const saveCollections = (collectionName) => {
 
     if (!exist) {
         collections.push(collectionName);
-        saveItemCollections(collectionName);
     }
+
+    saveItemCollections(collectionName);
 
     localStorage.setItem('collections', JSON.stringify(collections));
     clearSelectedTemp();
@@ -48,8 +49,8 @@ export const saveSingleCollections = (collectionName) => {
 
     if (!exist) {
         collections.push(collectionName);
-        saveSingleCollectionItems(collectionName);
     }
+    saveSingleCollectionItems(collectionName);
 
     localStorage.setItem('collections', JSON.stringify(collections));
 }
@@ -60,6 +61,17 @@ export const saveSingleCollectionItems = (collectionName) => {
     animeDetail = [{...animeDetail, collection: collectionName}];
     collectionsItems = [...collectionsItems, ...animeDetail] 
     localStorage.setItem('collection-items', JSON.stringify(collectionsItems));
+}
+
+export const saveCollectionOnly = (collectionName) => {
+    let collections = getCollections();
+    let exist = collections.find((item) => item === collectionName);
+
+    if (!exist) {
+        collections.push(collectionName);
+    }
+
+    localStorage.setItem('collections', JSON.stringify(collections));
 }
 
 export const saveItemCollections = (collectionName) => {

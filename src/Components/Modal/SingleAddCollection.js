@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { ButtonSave } from "../../Style/Button";
-import { Input } from "../../Style/Input";
+import { ErrorLabel, Input } from "../../Style/Input";
 import { Modal } from "../../Style/Modal";
 
-const SingleAddCollection = ({ show, onClose, submit }) => {
+const SingleAddCollection = ({ show, onClose, submit, error }) => {
     const [collectionName, setCollectionName] = useState("");
 
     const setValue = (value) => {
@@ -16,6 +16,7 @@ const SingleAddCollection = ({ show, onClose, submit }) => {
                 Add Collection
                 <span className="close" onClick={() => onClose()}>&times;</span>
                 <Input type="text" id="collectionName" value={collectionName} name="collectionName" placeholder="Collection name.." onChange={(e) => setValue(e.target.value)}/>
+                {error !== "" && (<ErrorLabel>{error}</ErrorLabel>)}
                 <ButtonSave onClick={() => submit(collectionName)}>Save</ButtonSave>
             </div>
         </Modal>

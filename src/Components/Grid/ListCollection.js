@@ -1,13 +1,19 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { getBannerCollections, getCollections, getCollectionsItemsByName, removeCollection } from "../../store/Collection";
+import { containSpecialChar } from "../../helper/manipulation";
+import { getBannerCollections, getCollections, getCollectionsItemsByName, removeCollection, saveCollectionOnly } from "../../store/Collection";
+import { Grow1 } from "../../Style/Body";
+import { Action, Button } from "../../Style/Button";
 import { Card } from "../../Style/Card";
 import { Container } from "../../Style/Container";
 import { Description } from "../../Style/Description";
 import { Img } from "../../Style/Img";
+import SingleAddCollection from "../Modal/SingleAddCollection";
 
 const ListCollection = ({goToAnimeDetails, goToCollectionDetails}) => {
     const [collections, setCollections] = useState(getCollections());
     const [refresh, setRefresh] = useState(false);
+    const [show, setShow] = useState(false);
+    const [error, setError] = useState(false);
 
     const deleteCollection = (item) => {
         removeCollection(item);
@@ -17,10 +23,34 @@ const ListCollection = ({goToAnimeDetails, goToCollectionDetails}) => {
 
     useEffect(() => {
         setRefresh(false);
+        setCollections(getCollections());
     }, [refresh])
+
+    const showAdd = () => {
+        setShow(true);
+    }
+
+    const submit = (collectionName) => {
+        if (collectionName) {
+            if (containSpecialChar(collectionName)) {
+                setError("Collection name cannot be special characters")
+            } else {
+                saveCollectionOnly(collectionName);
+                setShow(false);
+                setRefresh(true);
+            }
+        } else {
+            setError("Collection name cannot be empty")
+        }
+    }
     
     return (
         <Fragment>
+            <Action>
+                <Grow1>
+                    <Button onClick={() => showAdd()}>Add collection</Button>
+                </Grow1>
+            </Action>
             <Container>
                 {!refresh && collections.map((item, key) => {
                     return (
@@ -45,6 +75,7 @@ const ListCollection = ({goToAnimeDetails, goToCollectionDetails}) => {
                     )
                 })}
             </Container>
+            <SingleAddCollection show={show} submit={submit} onClose={() => setShow(false)} error={error} />
         </Fragment>
     )
 }
