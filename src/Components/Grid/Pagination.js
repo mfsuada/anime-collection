@@ -24,7 +24,7 @@ const Pagination = ({ total, page, paginate }) => {
             setCurrentPage(currentPage - 1);
             setTotalPage(totalPage - 1);
         }
-        
+        // eslint-disable-next-line
     }, [page])
 
     return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { clearSelectedTemp, saveCollections } from "../../store/Collection";
 import { ButtonSave } from "../../Style/Button";
 import { ErrorLabel, Input } from "../../Style/Input";
